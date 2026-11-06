@@ -9,47 +9,70 @@ function App() {
 
   return (
     <>
-      <div className="flex min-h-screen bg-linear-to-r/decreasing from-indigo-500 to-teal-400 justify-center items-center">
-        <div className="flex flex-col p-8 justify-around items-center bg-slate-200 h-72 rounded-3xl shadow-2xl transition-transform hover:scale-105 duration-300">
-          <h1 className="text-black text-2xl mb-5">Weather app</h1>
+      <div className="flex min-h-screen bg-linear-to-br from-slate-900 via-indigo-950 to-teal-900 justify-center items-center p-4 font-sans selection:bg-teal-400 selection:text-slate-900">
+        <div className="flex flex-col w-full max-w-md p-8 items-center bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.4)] transition-all duration-300">
+          {/* Header */}
+          <div className="flex flex-col items-center mb-6">
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-teal-300 mb-1">
+              Live Forecast
+            </span>
+            <h1 className="text-white text-3xl font-extrabold tracking-tight">
+              Weather App
+            </h1>
+          </div>
 
+          {/* Search Form */}
           <form
             onSubmit={(e) => {
               e.preventDefault();
               setsearchcity(city);
             }}
+            className="flex flex-col sm:flex-row w-full gap-3"
           >
             <input
               type="text"
               onChange={(e) => {
                 setcity(e.target.value);
               }}
-              className="text-black focus:outline-none bg-slate-200 p-4 m-4 border border-gray-500 rounded-xl"
+              className="flex-1 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-teal-400/80 bg-black/25 px-4 py-3.5 border border-white/10 rounded-2xl transition-all"
               placeholder="What city you like most"
             />
 
             <button
               type="submit"
-              className="bg-purple-800 hover:cursor-pointer hover:bg-purple-900 shadow-2xl text-white p-4 rounded-xl"
+              className="bg-linear-to-r from-teal-400 to-indigo-500 hover:from-teal-300 hover:to-indigo-400 hover:cursor-pointer active:scale-95 text-slate-950 font-bold px-6 py-3.5 rounded-2xl shadow-lg shadow-teal-500/20 transition-all duration-200 whitespace-nowrap"
             >
               Get weather
             </button>
           </form>
 
+          {/* Weather Results Display */}
           {weather && weather.location && (
-            <div className="flex flex-col items-center mt-4">
-              <h2 className="font-bold text-lg mb-2">
-                {weather.location.name}, {weather.location.country}
+            <div className="flex flex-col items-center w-full mt-8 pt-6 border-t border-white/15 text-white">
+              <h2 className="font-semibold text-xl tracking-wide text-white/90 text-center">
+                {weather.location.name},{" "}
+                <span className="text-teal-300 font-normal">
+                  {weather.location.country}
+                </span>
               </h2>
 
-              <div className="flex items-baseline gap-4">
-                <p className="font-medium">{weather.current.temp_c}°C</p>
-                <p className="italic">{weather.current.condition.text}</p>
+              <div className="flex flex-col items-center my-5">
+                <p className="text-6xl font-black tracking-tighter bg-linear-to-b from-white to-white/70 bg-clip-text text-transparent">
+                  {weather.current.temp_c}°C
+                </p>
+                <p className="mt-2 px-4 py-1 rounded-full bg-white/10 border border-white/10 text-teal-200 text-sm font-medium tracking-wide capitalize">
+                  {weather.current.condition.text}
+                </p>
               </div>
 
-              <p className="mt-2 font-medium">
-                Feels like: {weather.current.feelslike_c}°C
-              </p>
+              <div className="w-full bg-black/20 rounded-2xl p-3.5 mt-2 flex justify-center items-center border border-white/5">
+                <p className="text-sm text-white/70 font-medium">
+                  Feels like:{" "}
+                  <span className="text-white font-bold ml-1">
+                    {weather.current.feelslike_c}°C
+                  </span>
+                </p>
+              </div>
             </div>
           )}
         </div>
